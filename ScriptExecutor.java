@@ -12,6 +12,9 @@ public class ScriptExecutor {
 
         for (UserScript script : sortedScripts) {
             Runnable task = () -> {
+                 if (visited.contains(script)) {
+            throw new RuntimeException("Circular dependency detected involving script: " + script.getClass().getSimpleName());
+                    }
                 boolean success = false;
                 int retries = 0;
                 do {
